@@ -6,7 +6,7 @@ const options = {
     // options parameter for fun, to allow cors
     cors: {
         // pass in whatever domain client connects to (vrwikitest.com)
-        origin: ['https://vrwikitest.com']
+        origin: ['https://www.vrwikitest.com']
     }
 
 };
