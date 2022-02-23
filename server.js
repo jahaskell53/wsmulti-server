@@ -2,7 +2,7 @@ const io = require('socket.io')(3000, {
     // options parameter for fun, to allow cors
     cors: {
         // pass in whatever domain client connects to (vrwikitest.com)
-        origin: ['http://vrwikitest.com']
+        origin: ['https://vrwikitest.com']
     }
 
 })
