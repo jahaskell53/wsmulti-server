@@ -22,11 +22,11 @@ const io = new Server(httpServer, options)
     // connection gets passed socket obj automatically as argument
 io.on('connection', (socket) => {
     // use socket object to receive connection on controller channel
-    socket.on('controller', (left, right) => {
+    socket.on('controller', (leftPos, leftRot, rightPos, rightRot) => {
         // goal to broadcast this data to all clients except the one that sent it
-        socket.broadcast.emit('send-controller', left, right)
-        console.log("left: ", left);
-        console.log("right: ", right);
+        socket.broadcast.emit('send-controller', leftPos, leftRot, rightPos, rightRot)
+        console.log("left: ", leftPos);
+        console.log("right: ", rightPos);
     })
 });
 
