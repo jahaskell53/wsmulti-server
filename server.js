@@ -3,7 +3,7 @@ const { createServer } = require('https');
 const { Server } = require('socket.io');
 
 const options = {
-    // options parameter for fun, to allow cors
+    // options parameter for creating server port, to allow cors
     cors: {
         // pass in whatever domain client connects to (vrwikitest.com)
         origin: ['https://www.vrwikitest.com']
@@ -11,21 +11,22 @@ const options = {
 
 };
 
+// read the key and server stored in the aws lightsail, for using a secure ws connection
 const httpServer = createServer({
     key: readFileSync('/opt/bitnami/letsencrypt/certificates/www.vrwikitest.com.key'),
     cert: readFileSync("/opt/bitnami/letsencrypt/certificates/www.vrwikitest.com.crt")
 })
-
+// create a new server and store it as an io object (TODO: why?)
 const io = new Server(httpServer, options)
-
+    // have to be connected before sending event, restricting our second event to only get handled when connection is active
+    // connection gets passed socket obj automatically as argument
 io.on('connection', (socket) => {
-    // give all clients an id
-    // console.log(socket.id);
-    // have to be connected before sending event
-    socket.on('controller', (data) => {
+    // use socket object to receive connection on controller channel
+    socket.on('controller', (left, right) => {
         // goal to broadcast this data to all clients except the one that sent it
-        socket.broadcast.emit('send-controller', data)
-        console.log(data);
+        socket.broadcast.emit('send-controller', left, right)
+        console.log("left: ", left);
+        console.log("right: ", right);
     })
 });
 
