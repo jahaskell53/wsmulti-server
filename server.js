@@ -21,12 +21,13 @@ const io = new Server(httpServer, options)
     // have to be connected before sending event, restricting our second event to only get handled when connection is active
     // connection gets passed socket obj automatically as argument
 io.on('connection', (socket) => {
-    // use socket object to receive connection on controller channel
-    socket.on('controller', (leftPos, leftRot, rightPos, rightRot) => {
+    // when client connects, broadcast that to all other clients 
+    socket.broadcast.emit('client-joined', socket.id)
+    console.log("New user id:", socket.id)
+    // when the server receives a message on controller channel,
+    socket.on('controller', (userObj) => {
         // goal to broadcast this data to all clients except the one that sent it
-        socket.broadcast.emit('send-controller', leftPos, leftRot, rightPos, rightRot)
-        console.log("left: ", leftPos);
-        console.log("right: ", rightPos);
+        socket.broadcast.emit('send-controller', userObj)
     })
 });
 
