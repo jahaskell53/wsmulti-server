@@ -22,12 +22,12 @@ const io = new Server(httpServer, options)
     // connection gets passed socket obj automatically as argument
 io.on('connection', (socket) => {
     // when client connects, broadcast that to all other clients 
-    socket.broadcast.emit('client-joined', socket.id)
+    socket.broadcast.emit('user-joined', socket.id)
     console.log("New user id:", socket.id)
     // when the server receives a message on controller channel,
-    socket.on('controller', (userObj) => {
+    socket.on('update-to', (userObj) => {
         // goal to broadcast this data to all clients except the one that sent it
-        socket.broadcast.emit('send-controller', userObj)
+        socket.broadcast.emit('update-send', userObj)
     })
 });
 
