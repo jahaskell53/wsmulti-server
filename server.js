@@ -1,6 +1,9 @@
 const { readFileSync } = require('fs');
 const { createServer } = require('https');
 const { Server } = require('socket.io');
+config = require('./config.json');
+Twitter = require('node-tweet-stream');
+t = new Twitter(config);
 
 const options = {
     // options parameter for creating server port, to allow cors
@@ -29,6 +32,15 @@ io.on('connection', (socket) => {
         // goal to broadcast this data to all clients except the one that sent it
         socket.broadcast.emit('update-send', userObj)
     })
+});
+
+
+t.track('pizza');
+t.on('tweet', function(tweet){
+  console.log('Roger that. Tweets incoming!');
+  console.log(tweet);
+
+  io.emit('tweet', tweet);
 });
 
 httpServer.listen(3000);
