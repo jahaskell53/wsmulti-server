@@ -5,7 +5,8 @@ const { Server } = require("socket.io");
 // TOOD: replace with immutable data types in TS
 const PORT = 3000;
 const KEY_PATH = "/opt/bitnami/letsencrypt/certificates/www.vrwikitest.com.key";
-const CERT_PATH = "/opt/bitnami/letsencrypt/certificates/www.vrwikitest.com.crt";
+const CERT_PATH =
+  "/opt/bitnami/letsencrypt/certificates/www.vrwikitest.com.crt";
 const SERVER_DOMAIN = "https://www.vrwikitest.com";
 
 const options = {
@@ -32,6 +33,7 @@ io.on("connection", (socket) => {
   // when the server receives a message on controller channel,
   socket.on("update-to", (userObj) => {
     // broadcasts this data to all clients except the one that sent it
+    console.log(socket.id == userObj.id);
     socket.broadcast.emit("update-send", userObj);
   });
 });
