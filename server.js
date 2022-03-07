@@ -33,8 +33,7 @@ io.on("connection", (socket) => {
   // when the server receives a message on controller channel,
   socket.on("update-to", (userObj) => {
     // broadcasts this data to all clients except the one that sent it
-    console.log(socket.id == userObj.id);
-    socket.broadcast.emit("update-send", userObj);
+    socket.broadcast.emit("update-send", userObj, socket.id);
   });
 });
 
