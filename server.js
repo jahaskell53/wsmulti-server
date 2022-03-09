@@ -35,6 +35,9 @@ io.on("connection", (socket) => {
     // broadcasts this data to all clients except the one that sent it
     socket.broadcast.emit("update-send", userObj, socket.id);
   });
+  socket.on("disconnect", () => {
+    socket.broadcast.emit("disconnect-send", socket.id);
+  });
 });
 
 httpServer.listen(PORT);
