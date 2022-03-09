@@ -7,7 +7,7 @@ const PORT : number = 3000;
 const KEY_PATH : string = "/opt/bitnami/letsencrypt/certificates/www.vrwikitest.com.key";
 const CERT_PATH : string =
   "/opt/bitnami/letsencrypt/certificates/www.vrwikitest.com.crt";
-const SERVER_DOMAIN = "https://www.vrwikitest.com";
+const SERVER_DOMAIN : string = "https://www.vrwikitest.com";
 
 const options : object = {
   // options parameter for creating server port, to allow cors
@@ -31,7 +31,7 @@ io.on("connection", (socket) => {
   socket.broadcast.emit("user-joined", socket.id);
   console.log("New user id:", socket.id);
   // when the server receives a message on controller channel,
-  socket.on("update-to", (userObj) => {
+  socket.on("update-to", (userObj : object) => {
     // broadcasts this data to all clients except the one that sent it
     socket.broadcast.emit("update-send", userObj, socket.id);
   });
