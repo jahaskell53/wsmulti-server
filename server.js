@@ -1,9 +1,10 @@
 import { readFileSync } from "fs";
 import { createServer } from "https";
 import { Server } from "socket.io";
+import "dotenv/config";
 
 // config details (defined in your .env file)
-const SERVER_PORT = process.env.SERVER_PORT; 
+const SERVER_PORT = process.env.SERVER_PORT;
 const KEY_PATH = process.env.KEY_PATH;
 const CERT_PATH = process.env.CERT_PATH;
 const CLIENT_URL = process.env.CLIENT_URL;
