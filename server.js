@@ -2,18 +2,17 @@ import { readFileSync } from "fs";
 import { createServer } from "https";
 import { Server } from "socket.io";
 
-// replace these constants with your own config
-const SERVER_PORT = 3000; 
-const KEY_PATH = "/opt/bitnami/letsencrypt/certificates/www.vrwikitest.com.key";
-const CERT_PATH =
-  "/opt/bitnami/letsencrypt/certificates/www.vrwikitest.com.crt";
-const SERVER_DOMAIN = "https://www.vrwikitest.com";
+// config details (defined in your .env file)
+const SERVER_PORT = process.env.SERVER_PORT; 
+const KEY_PATH = process.env.KEY_PATH;
+const CERT_PATH = process.env.CERT_PATH;
+const CLIENT_URL = process.env.CLIENT_URL;
 
 const options = {
   // allows cors (Cross-Origin-Resource Sharing) so client can connect to server
   cors: {
-    // pass in whatever domain server is on
-    origin: [SERVER_DOMAIN],
+    // passes in whatever domain client is on
+    origin: [CLIENT_URL],
   },
 };
 
