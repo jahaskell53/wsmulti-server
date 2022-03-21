@@ -1,10 +1,10 @@
 import { readFileSync } from "fs";
 import { createServer } from "https";
 import { Server } from "socket.io";
-import Twitter from "twitter";
+import TwitterApi from "twitter-api-v2";
 import "dotenv/config";
 
-const client = new Twitter({
+const client = new TwitterApi({
   consumer_key: process.env.API_KEY,
   consumer_secret: process.env.API_KEY_SECRET,
   access_token_key: process.env.ACCESS_TOKEN_KEY,
