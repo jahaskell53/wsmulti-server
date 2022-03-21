@@ -1,8 +1,17 @@
 import { readFileSync } from "fs";
 import { createServer } from "https";
 import { Server } from "socket.io";
+import Twitter from "twitter";
 import "dotenv/config";
 
+const client = new Twitter({
+  consumer_key: process.env.API_KEY,
+  consumer_secret: process.env.API_KEY_SECRET,
+  access_token_key: process.env.ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.ACCESS_TOKEN_SECRET,
+});
+const res = client.get("statuses/user_timeline", {});
+console.log(res);
 // config details (defined in your .env file)
 const SERVER_PORT = process.env.SERVER_PORT;
 const KEY_PATH = process.env.KEY_PATH;
